@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container ">
+        <div class="title">
+            <h1>Inicia sesión</h1>
+            <h5>por favor registra los datos para iniciar sesión</h5>
+        </div>
+        <div class="accounts">
+            <button class="accounts-btn">
+                <picture><img src="https://logodownload.org/wp-content/uploads/2017/05/google-chrome-logo.png"
+                        alt="google"></picture>
+            </button>
+            <button class="accounts-btn">
+                <picture><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="githab"></picture>
+            </button>
+            <button class="accounts-btn">
+                <picture><img
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/2048px-Facebook_f_logo_%282019%29.svg.png"
+                        alt="facebook"></picture>
+            </button>
+        </div>
+        <div class="separator">
+            <hr>
+            <span> o tambien...</span>
+            <hr>
+        </div>
+        <form id="loginForm">
+            <!-- <label for="name">
+                    <span>Nombre</span>
+                    <input type="text" id="name" name="name">
+                </label> -->
+            <label for="">
+                <span>Usuario</span>
+                <input type="text" id="username" name="usuario"  required>
+            </label>
+            <label for="Password" class="contraseña">
+                <span>Contraseña</span>
+                <input type="password" id="password" name="password" required>
+                <span class="reset"><a href="restablecer.html">Olvidaste tu contraseña?</a></span>
+            </label>
+            <label for="checkbox" class="checkbox-label">
+                <input type="checkbox" id="checkbox" name="checkbox">
+                <span>Acepto terminos y condiciones</span>
+            </label>
+            <label>
+                <button type="submit" class="btn-submit">Ingresar</button>
+            </label>
+            <label for="registro">
+                <span>No eres miembro? <a href="*">Registrate</a></span>
+            </label>
+        </form>
+    </div>
+    </div>
+    <script src="/index.js"></script>
+</body>
+
+</html>
