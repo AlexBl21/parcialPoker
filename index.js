@@ -13,11 +13,13 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
+
     // Limpiar el localStorage al cargar la página
     localStorage.removeItem('datos');
 
     // Cargar los datos desde data.json
     cargarJSON();
+    aumentarClick();
 
     // Registrar evento de submit para agregar nuevas cartas
     document.querySelector('#registrar').addEventListener('click', function (event) {
@@ -27,21 +29,30 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Incrementar cantidad cuando se hace clic en una carta
-    document.querySelectorAll('.card').forEach(function (card) {
-        card.addEventListener('click', function () {
-            var datos = JSON.parse(localStorage.getItem('datos')) || [];
-            var numeroCarta = this.querySelector('img').getAttribute('src').match(/\d+/)[0]; // Obtener número de la carta de la imagen
+    function aumentarClick() {
+        // Usar querySelectorAll para seleccionar todas las cartas
+        document.querySelectorAll('.card').forEach(function (card) {
+            // Evitar agregar múltiples event listeners verificando si ya tiene el listener registrado
+            if (!card.classList.contains('click-registrado')) {
+                card.addEventListener('click', function () {
+                    var datos = JSON.parse(localStorage.getItem('datos')) || [];
+                    var numeroCarta = this.querySelector('img').getAttribute('src').match(/\d+/)[0]; // Obtener número de la carta de la imagen
 
-            datos.forEach(item => {
-                if (item.numero === numeroCarta) {
-                    item.cantidad++;
-                }
-            });
+                    datos.forEach(item => {
+                        if (item.numero === numeroCarta) {
+                            item.cantidad++;
+                        }
+                    });
 
-            localStorage.setItem('datos', JSON.stringify(datos));
-            pintarTabla();
+                    localStorage.setItem('datos', JSON.stringify(datos));
+                    pintarTabla();
+                });
+
+                // Marcar la carta para evitar registrar múltiples eventos
+                card.classList.add('click-registrado');
+            }
         });
-    });
+    }
 
     // Guardar nueva carta en el localStorage
     function guardarCarta() {
@@ -68,16 +79,8 @@ document.addEventListener("DOMContentLoaded", function () {
         nuevaCartaElement.innerHTML = `<img src="img/${numero}.png" alt="${carta}">`;
         main.appendChild(nuevaCartaElement);
 
-        // Re-registrar evento de clic para la nueva carta
-        nuevaCartaElement.addEventListener('click', function () {
-            datos.forEach(item => {
-                if (item.numero === numero) {
-                    item.cantidad++;
-                }
-            });
-            localStorage.setItem('datos', JSON.stringify(datos));
-            pintarTabla();
-        });
+        // Registrar evento de clic para la nueva carta
+        aumentarClick();  // Aquí se registrará el click para la nueva carta
     }
 
     // Función para cargar datos desde el archivo JSON
@@ -87,6 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(datos => {
                 localStorage.setItem('datos', JSON.stringify(datos));
                 pintarTabla();
+                aumentarClick();  // Asegúrate de registrar los eventos de clic al cargar las cartas del JSON
             })
             .catch(error => console.error('Error al cargar el JSON:', error));
     }
